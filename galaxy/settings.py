@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,23 +31,24 @@ CART_SESSION_ID = 'cart'
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rdrzi#jpi5q=ek*cah$10h$*fgwsty03cix3)%m9=-b8t2l-&$'
+SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-STRIPE_PUB_KEY = 'pk_test_51IuWjxSE3f2Hhlixj9Oallum2BlJd4uLegOYuWjZLSsT1lVSZoWb662n20CwxVVdtNo8aSaze9eFusyu04zUWOu500noO2YoEp'
-STRIPE_SECRET_KEY = 'sk_test_51IuWjxSE3f2HhlixGskjhHi3HxrY8HcuYSWoErToLgp1oX6A2hWC578F3sV0cyQ1smILbb8xHWkdOR6zCxyq8AJr00OXlbRi83'
+# Stripe settings
+STRIPE_PUB_KEY = os.getenv('STRIPE_PUB_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = 'typeyourkey'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_EMAIL_FROM = 'Galaxy <noreply@galaxy.com>'
+# Email settings
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.sendgrid.net')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'apikey')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+DEFAULT_EMAIL_FROM = os.getenv('DEFAULT_EMAIL_FROM', 'Galaxy <noreply@galaxy.com>')
 
 
 # Application definition

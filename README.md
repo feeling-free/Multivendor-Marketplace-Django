@@ -67,11 +67,26 @@ pip install -r requirements.txt
 - Create a `.env` file in the project root
 - Add the following variables:
   ```
-  SECRET_KEY=your_django_secret_key
-  STRIPE_PUB_KEY=your_stripe_public_key
-  STRIPE_SECRET_KEY=your_stripe_secret_key
-  EMAIL_HOST_PASSWORD=your_sendgrid_api_key
+  # Django settings
+  SECRET_KEY=your-secret-key-here
+  DEBUG=True
+  ALLOWED_HOSTS=localhost,127.0.0.1
+
+  # Stripe settings
+  STRIPE_PUB_KEY=your-stripe-public-key
+  STRIPE_SECRET_KEY=your-stripe-secret-key
+
+  # Email settings (SendGrid)
+  EMAIL_HOST=smtp.sendgrid.net
+  EMAIL_HOST_USER=apikey
+  EMAIL_HOST_PASSWORD=your-sendgrid-api-key
+  EMAIL_PORT=587
+  EMAIL_USE_TLS=True
+  DEFAULT_EMAIL_FROM=Galaxy <noreply@galaxy.com>
   ```
+- Make sure to replace all placeholder values with your actual credentials
+- Never commit the `.env` file to version control
+- Keep your `.env` file secure and private
 
 5. Run migrations:
 ```bash
